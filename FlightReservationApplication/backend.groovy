@@ -35,10 +35,8 @@ pipeline{
                     docker push sanketx/flight-reservation:latest
                     docker rmi sanketx/flight-reservation:latest
 
-                '''
-                
+                '''    
             }
-
         }
         stage('Deploy'){
             steps{
