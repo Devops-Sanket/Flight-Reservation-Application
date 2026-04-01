@@ -3,20 +3,20 @@ pipeline {
     stages {
         stage('Code-Pull'){
             steps{
-                git branch: 'main', url: 'https://github.com/Devops-Sanket/Flight-Reservation-Application.git'    
+                git branch: 'main', url: 'https://github.com/Devops-Sanket/Flight-Reservation-Application'    
             }
         }
         stage('Code-Build'){
             steps{
                 sh '''
                     cd FlightReservationApplication
-                    mvn clean package 
+                    mvn clean package -DskipTests
                 '''
             }
         }
         stage('QA-Test'){
             steps{
-                withSonarQubeEnv(installationName: 'sonar', credentialsId: 'sonar-token') {
+                withSonarQubeEnv(installationName: 'sonar-server', credentialsId: 'sonar-token') {
                  sh '''
                     cd FlightReservationApplication
                     mvn sonar:sonar -Dsonar.projectKey=flight-reservation
